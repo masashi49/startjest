@@ -77,6 +77,11 @@ const can4 = new Can({
   ounces: 0,
 });
 
+const can5 = new Can({
+  flavor: 'aaa',
+  ounces: 0,
+});
+
 it('canTest', () => {
   expect(can1).not.toBe(can2); // toBeは参照も等しいかみるため toBeではない。
 });
@@ -90,4 +95,51 @@ it('canTest1,2 toEqual', () => {
 
 it('canTest2,4 toEqual', () => {
   expect(can2).toEqual(can4); // toEqualはプロパティが同じかどうかを評価する。参照は見ない
+});
+
+it('canTest2,4 toStrictEqual', () => {
+  expect(can2).not.toStrictEqual(can4); // toStrictEqualはプロトタイプの一まで見る
+});
+
+it('canTest4,5 toStrictEqual', () => {
+  expect(can4).toStrictEqual(can5); //
+});
+
+it('toEqualとtoStrictEqulalの違い', () => {
+  expect({
+    foo: NaN,
+    bar: undefined,
+    safd: undefined,
+    jhdg: undefined,
+    joy: 10,
+  }).toEqual({
+    foo: NaN,
+    joy: 10,
+  }); //toEqualはundefinedを持プロパティを無視する
+});
+it('toEqualとtoStrictEqulalの違い', () => {
+  expect({
+    foo: NaN,
+    bar: undefined,
+    safd: undefined,
+    jhdg: undefined,
+    joy: 10,
+  }).not.toStrictEqual({
+    foo: NaN,
+    joy: 10,
+  }); //toStrictEqualはundefinedを持プロパティも評価する
+});
+
+it('toEqualとtoStrictEqulalの違い', () => {
+  expect([, undefined, 1]).toEqual([, , 1]); // 未定義とundefinedを区別しない
+  expect([, undefined, 1]).not.toStrictEqual([, , 1]); // 未定義とundefinedを区別する
+});
+
+// 真偽地
+// toBeは厳密な真偽地を評価する。true === true
+// 0 == false など、曖昧な真偽地はtoBeTruthy , toBeFalsyを使う。
+
+it('', () => {
+  expect('0').toBeTruthy(); // "0"は文字列なのでtrue
+  expect(0).toBeFalsy(); // 0は数字かつfalseなのでtrue
 });
