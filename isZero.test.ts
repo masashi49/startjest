@@ -143,3 +143,40 @@ it('', () => {
   expect('0').toBeTruthy(); // "0"は文字列なのでtrue
   expect(0).toBeFalsy(); // 0は数字かつfalseなのでtrue
 });
+
+test('should be null', () => {
+  expect(null).toBe(null);
+  expect(null).toBeNull();
+
+  expect(undefined).toBe(undefined);
+  expect(undefined).toBeUndefined();
+});
+
+const hhhhhh = () => ({ hoge: 'hogehoge', id: 0 });
+
+test('曖昧な結果の表示', () => {
+  //expect.anythingはnullとundefined以外の値はtrueとなる
+  expect(hhhhhh()).toEqual(expect.anything());
+
+  expect(hhhhhh()).toEqual({
+    hoge: 'hogehoge',
+    id: expect.anything(),
+  });
+
+  expect(hhhhhh()).toEqual({
+    hoge: 'hogehoge',
+    id: expect.any(Number), // anyはその型ならなんでもOK
+  });
+});
+
+test('0.1+0.2', () => {
+  expect(0.1 + 0.2).not.toBe(0.3); // 0.30000000000000004になるよ。
+  expect(0.1 + 0.2).toBeCloseTo(0.3); // デフォルトでは小数点二桁まで計算してくれる、
+  expect(0.1 + 0.02).toBeCloseTo(0.12, 3); // 下3桁まで計算
+  expect(0.1 + 0.02).not.toBe(0.12); // 0.12000000000000001
+});
+
+test('greater', () => {
+  expect(0.1 + 0.2).toBeGreaterThan(0.3);
+  expect(0.1 + 0.2 > 0.3).toBe(true);
+});
