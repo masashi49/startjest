@@ -178,5 +178,5 @@ test('0.1+0.2', () => {
 
 test('greater', () => {
   expect(0.1 + 0.2).toBeGreaterThan(0.3);
-  expect(0.1 + 0.2 > 0.3).toBe(true);
+  expect(0.1 + 0.2 === 0.3).toBe(false);
 });
