@@ -177,6 +177,60 @@ test('0.1+0.2', () => {
 });
 
 test('greater', () => {
+  // toBeGreaterThan 期待された値よりも大きい
   expect(0.1 + 0.2).toBeGreaterThan(0.3);
   expect(0.1 + 0.2 === 0.3).toBe(false);
+
+  // toBeGreaterThanOrEqual　期待された値 `以上`である
+  expect(0.1 + 0.2).toBeGreaterThanOrEqual(0.3);
+
+  //toBeLessThan 期待された値よりも小さい
+  expect(0.1 + 0.2).toBeLessThan(0.4);
+  //toBeLessThanOrEqual 期待された値より `以下`である
+  expect(0.1 + 0.2).toBeLessThanOrEqual(0.30000000000000004);
 });
+
+test('striongContain', () => {
+  const log1 =
+    '10.0.0.3 - - [30/Jan/2023:12:20:12 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.74.0" "-"';
+  const log2 =
+    '10.0.0.11 - - [30/Jan/2023:12:20:40 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.74.0" "-"';
+  const log3 =
+    '10.0.0.99 - - [30/Jan/2023:12:20:40 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.74.0" "-"';
+
+  const expected = /^10.0.0.([1-9]?[0-9]) /;
+
+  // expect.stringMatching 文字列が一致する
+  expect(log1).toEqual(expect.stringMatching(expected));
+  expect(log2).toEqual(expect.stringMatching(expected));
+  expect(log3).toEqual(expect.stringMatching(expected));
+
+  // 正規表現で使う toMatch 文字列が一致する
+  expect(log1).toMatch(expected);
+  expect(log2).toMatch(expected);
+  expect(log3).toMatch(expected);
+
+  //stringMatchingやtoMatchと同じ評価ができる
+  const regex = new RegExp(expected);
+  expect(regex.test(log1)).toBe(true);
+  expect(regex.test(log2)).toBe(true);
+  expect(regex.test(log3)).toBe(true);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
