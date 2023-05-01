@@ -217,20 +217,18 @@ test('striongContain', () => {
   expect(regex.test(log3)).toBe(true);
 });
 
+test('配列の部分一致', () => {
+  // toContain : 検証要素がプリミティブ型の時
+  // toContainEqual : 検証要素がオブジェクト型の時
+  // expect.arrayContaining : 複数の要素を検証、完全一致ではなく、足りなくてもOK
+  const fruitList = ['Apple', 'Lemon', 'Orange'];
 
+  // Apple(プリミティブ型)が含まれている
+  expect(fruitList).toContain('Apple');
+  expect(fruitList).not.toContain('Banana');
+  expect(fruitList).not.toContain(100);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // 複数含まれている
+  expect(fruitList).toEqual(expect.arrayContaining(['Apple', 'Orange'])); // 足りなくてもOK
+  expect(fruitList).not.toEqual(expect.arrayContaining(['Apple', 11])); // 11が存在しないのでnot
+});
