@@ -274,6 +274,8 @@ test('オブジェクトの部分一致', () => {
   // ネストした値を持っているか
   expect(ciBuild).toHaveProperty('actor.login', 'name'); // hoge.hugaは文字列扱いではない。ネストとして理解してくれる
 
+  expect(ciBuild).toHaveProperty('trigger.hoge', true); 
+
   // オブジェクトの中身を複数一致
   expect(ciBuild).toEqual(
     expect.objectContaining({
