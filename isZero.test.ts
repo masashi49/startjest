@@ -229,6 +229,57 @@ test('配列の部分一致', () => {
   expect(fruitList).not.toContain(100);
 
   // 複数含まれている
-  expect(fruitList).toEqual(expect.arrayContaining(['Apple', 'Orange'])); // 足りなくてもOK
+  expect(fruitList).toEqual(expect.arrayContaining(['Apple', 'Orange'])); // 足りなくてもOK , toEqualは値の一致のみでした
   expect(fruitList).not.toEqual(expect.arrayContaining(['Apple', 11])); // 11が存在しないのでnot
+});
+
+test('配列の部分一致続き', () => {
+  const itemList = [
+    { name: 'apple', price: 100 },
+    { name: 'lemon', price: 100 },
+    { name: 'orange', price: 100 },
+  ];
+
+  // toContainEqualは配列の中を検証するので、[{}]としなくてよい。
+  // toContainEqualは配列内のオブジェクトの検証
+  expect(itemList).toContainEqual({ name: 'apple', price: 100 });
+  expect(itemList).toEqual(
+    expect.arrayContaining([
+      { name: 'apple', price: 100 },
+      { name: 'lemon', price: 100 },
+    ])
+  );
+  expect(itemList).not.toEqual(
+    expect.arrayContaining([
+      { name: 'apple', price: 200 }, // 200はない
+      { name: 'lemon', price: 100 },
+    ])
+  );
+});
+
+test('オブジェクトの部分一致', () => {
+  const ciBuild = {
+    number: 1,
+    trigger: {
+      hoge: true,
+    },
+    type: 'test',
+    actor: {
+      login: 'name',
+    },
+  };
+  // keyがnumber,値が1を持っているか
+  expect(ciBuild).toHaveProperty('number', 1);
+
+  // ネストした値を持っているか
+  expect(ciBuild).toHaveProperty('actor.login', 'name'); // hoge.hugaは文字列扱いではない。ネストとして理解してくれる
+
+  // オブジェクトの中身を複数一致
+  expect(ciBuild).toEqual(
+    expect.objectContaining({
+      trigger: expect.objectContaining({ hoge: true }), // expect.objectContainingを使うと入れ子もできる
+      type: 'test',
+      number: 1,
+    })
+  );
 });
