@@ -245,13 +245,19 @@ test('配列の部分一致続き', () => {
   expect(itemList).toContainEqual({ name: 'apple', price: 100 });
   expect(itemList).toEqual(
     expect.arrayContaining([
-      { name: 'apple', price: 100 },
+      { name: 'apple', price: 100 }, // arrayContainingは複数検証したい時に使う
       { name: 'lemon', price: 100 },
     ])
   );
   expect(itemList).not.toEqual(
     expect.arrayContaining([
       { name: 'apple', price: 200 }, // 200はない
+      { name: 'lemon', price: 100 },
+    ])
+  );
+  expect(itemList).toEqual(
+    expect.arrayContaining([
+      { name: 'apple', price: 100 },
       { name: 'lemon', price: 100 },
     ])
   );
@@ -274,7 +280,7 @@ test('オブジェクトの部分一致', () => {
   // ネストした値を持っているか
   expect(ciBuild).toHaveProperty('actor.login', 'name'); // hoge.hugaは文字列扱いではない。ネストとして理解してくれる
 
-  expect(ciBuild).toHaveProperty('trigger.hoge', true); 
+  expect(ciBuild).toHaveProperty('trigger.hoge', true);
 
   // オブジェクトの中身を複数一致
   expect(ciBuild).toEqual(
@@ -284,4 +290,23 @@ test('オブジェクトの部分一致', () => {
       number: 1,
     })
   );
+});
+
+test('objectテスト', () => {
+  const hogeOb = {
+    id: 10,
+    name: 'hello',
+    age: 42,
+    huga: [1, 3, 5, 6],
+    foooo: {
+      ab: 1,
+      bd: 2,
+    },
+  };
+
+  expect(hogeOb).toHaveProperty('id', 10);
+  expect(hogeOb).toHaveProperty('name', 'hello');
+  expect(hogeOb).toHaveProperty('huga', expect.arrayContaining([1, 3, 5, 6]));
+  expect(hogeOb).toHaveProperty('huga', [1, 3, 5, 6]);
+  expect(hogeOb).toHaveProperty('foooo', { ab: 1, bd: 2 });
 });
