@@ -347,3 +347,23 @@ test('callbackのテスト', (done) => {
   };
   hogeghogessf(callback);
 });
+
+// Promiseの使い方を復習する
+
+const doSomeThingAsync = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 1000);
+  });
+};
+
+const success = () => {
+  console.log('成功した');
+};
+const faild = () => {
+  console.log('失敗');
+};
+
+doSomeThingAsync().then(success).catch(faild);
+doSomeThingAsync().then(success, faild);
