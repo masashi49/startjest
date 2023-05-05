@@ -310,3 +310,40 @@ test('objectテスト', () => {
   expect(hogeOb).toHaveProperty('huga', [1, 3, 5, 6]);
   expect(hogeOb).toHaveProperty('foooo', { ab: 1, bd: 2 });
 });
+
+class User {
+  name: string;
+  password: string;
+  constructor({ name, password }: { name: string; password: string }) {
+    if (password.length < 6) throw new Error('6文字以下にしてください');
+    this.name = name;
+    this.password = password;
+  }
+}
+test('エラーがthrowされるかのスト', () => {
+  expect(new User({ name: 'hoge', password: '123456' })).toEqual({
+    name: 'hoge',
+    password: '123456',
+  });
+});
+
+test('エラーがthrowされるかのスト', () => {
+  //expect(new User({ name: 'hoge', password: '12345' })).toThrow(); // 無名関数をしようしていないのでステップが終了してしまう
+  expect(() => new User({ name: 'hoge', password: '12345' })).toThrow(); // 無名関数でかこえばOK
+  expect(() => new User({ name: 'hoge', password: '12345' })).toThrow(Error); //error型かのチェック
+  expect(() => new User({ name: 'hoge', password: '12345' })).toThrow(
+    '6文字以下にしてください'
+  ); // エラー文字もチェックできる
+});
+
+const hogeghogessf = (callBack: any) => {
+  setTimeout(callBack, 1000, 'lemon'); // 引数1:待機秒数後に動くcallback関数 , 引数2:待機秒数、引数3:callBackに渡す引数1つめ
+};
+
+test('callbackのテスト', (done) => {
+  const callback = (data: any) => {
+    expect(data).toBe('lemon');
+    done(); // テストの終了を宣言しなければならない。
+  };
+  hogeghogessf(callback);
+});
