@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { isZero } from './isZero';
 
 test('0を渡すとtrue', () => {
@@ -367,3 +368,28 @@ const faild = () => {
 
 doSomeThingAsync().then(success).catch(faild);
 doSomeThingAsync().then(success, faild);
+
+const task = (name: string, total: number): Promise<number> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      total += 1;
+      //console.log(`${name} is ${total}`);
+      resolve(total);
+    }, 1000);
+  });
+};
+
+task('task-1', 0)
+  .then((total) => task('task1', total))
+  .then((total) => task('task2', total));
+
+const fetchDataWithPromiseResolve = () => {
+  return new Promise((resolve) => setTimeout(resolve, 1000, 'lemon'));
+};
+test('resolveを利用して成功時の値を受け取る', () => {
+  return expect(fetchDataWithPromiseResolve()).resolves.toBe('lemon');
+});
+
+test('', async () => {
+  await expect(fetchDataWithPromiseResolve()).resolves.toBe('lemon');
+});
