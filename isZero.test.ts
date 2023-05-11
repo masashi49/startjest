@@ -393,3 +393,21 @@ test('resolveを利用して成功時の値を受け取る', () => {
 test('', async () => {
   await expect(fetchDataWithPromiseResolve()).resolves.toBe('lemon');
 });
+
+test('成功テスト', () => {
+  return expect(fetchDataWithPromiseResolve()).resolves.toBe('lemon');
+});
+
+const feachFReject = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(reject, 1000, new Error('エラーです'));
+  });
+};
+
+test('fetchのテスト', () => {
+  return expect(feachFReject()).rejects.toThrow('エラーです');
+});
+
+test('失敗テスト', async () => {
+  await expect(feachFReject()).rejects.toThrow('エラーです');
+});
