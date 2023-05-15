@@ -62,3 +62,10 @@ test.each([
 ])('消費税10％テストEach', ({ a, expected }) => {
   expect(tax(a)).toBe(expected);
 });
+
+// beforeAll : describe内で定義されているすべてのテストの実行前に1回実行される
+// befoerEach : describe内で定義されている"それぞれ"のテストの実行前に1回実行される
+// afterAll : すべてのテストの終了後に1回実行される
+// afterEacth それぞれのテストの終了後に1回実行される
+
+
