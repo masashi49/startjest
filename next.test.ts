@@ -84,3 +84,15 @@ test.concurrent.each(
   console.log(n);
   await expect(fetchData()).resolves.toBe(expected);
 });
+
+test.concurrent.skip.each(
+  // 並列でテストできるので早い
+  Array.from(new Array(100).keys()).map((n) => ({
+    //100この空配列をmapし、それぞれにn,expectedを入れていく
+    n, // 1~100
+    expected: 'lemon',
+  }))
+)('スキップする　fetchData $n', async ({ n, expected }) => {
+  console.log(n);
+  await expect(fetchData()).resolves.toBe(expected);
+});
