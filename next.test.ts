@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 describe('グループにする', () => {
   test('trueはtrue', () => {
     expect(true).toBe(true);
@@ -68,4 +70,17 @@ test.each([
 // afterAll : すべてのテストの終了後に1回実行される
 // afterEacth それぞれのテストの終了後に1回実行される
 
+const fetchData = () =>
+  new Promise((resolve) => setTimeout(resolve, 100, 'lemon'));
 
+test.concurrent.each(
+  // 並列でテストできるので早い
+  Array.from(new Array(100).keys()).map((n) => ({
+    //100この空配列をmapし、それぞれにn,expectedを入れていく
+    n, // 1~100
+    expected: 'lemon',
+  }))
+)('fetchData $n', async ({ n, expected }) => {
+  console.log(n);
+  await expect(fetchData()).resolves.toBe(expected);
+});
