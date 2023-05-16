@@ -26,4 +26,13 @@ describe('mockが持っているものをてすとで確認する', () => {
 
     expect(mockFun.mock.results[0].type).toBe('return');
   });
+
+  test('helloと返す関数のmoc', () => {
+    const hello = jest.fn(() => 'hello');
+    const helloOB = jest.fn(() => {
+      return { id: 1 };
+    });
+    expect(hello()).toBe('hello');
+    expect(helloOB()).toEqual({ id: 1 });
+  });
 });
