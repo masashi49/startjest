@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <aside>
+        <div class="main-wrapper">
+          <div class="aboutme">aaaaa</div>
+        </div>
+      </aside>
+      <main class="hoge">
+        <div class="main-wrapper">
+          <div class="aboutme">.bbbbbbb</div>
+        </div>
+      </main>
+
+      <style>
+        .hoge {
+          container-type: inline-size;
+          container-name: hello;
+        }
+        .main-wrapper {
+          container-type: inline-size; /*子がコンテナクエリだと定義する*/
+          container-name: cu;
+        }
+        .aboutme {
+          background: #ccc;
+        }
+        /* largeスタイル */
+        @container hello (width > 300px) {
+          /*helloの中にあるものしか反応しない*/
+          /*コンテナクエリに対するcss*/
+          .aboutme {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #ff33cc;
+          }
+        }
+      </style>
+    </main>
+  </body>
+</html>
