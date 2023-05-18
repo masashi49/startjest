@@ -6,9 +6,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+  <style>
+    body {
+      background: #dfdfdf;
+    }
+    main {
+      width: 500px;
+      background: #ffff;
+    }
+  </style>
   <body>
     <main>
-      <aside>
+      <div class="f-container">
+        <div class="f-item">1</div>
+        <div class="f-item is">2</div>
+        <div class="f-item was">3</div>
+        <div class="f-item is">4</div>
+        <div class="f-item was">5</div>
+        <div class="f-item is">6</div>
+        <div class="f-item was">7</div>
+        <div class="f-item is">8</div>
+        <div class="f-item was">9</div>
+        <div class="f-item is">10</div>
+        <div class="f-item was">11</div>
+      </div>
+
+      <style>
+        .f-container {
+          height: 500px;
+          display: flex;
+          /*横並び*/
+          flex-direction: row-reverse; /*右を先頭とし、左へ並ぶ*/
+          flex-direction: column; /*上から下へ配置 左詰め*/
+          flex-direction: column-reverse; /*したから上に並ぶ*/
+          flex-direction: row; /*初期値、左から右への横並びになる*/
+
+          /*折り返し方*/
+          flex-wrap: nowrap; /*折り返さない、どこまでも横に並ぶ*/
+          flex-wrap: wrap; /*子供の要素の横幅が入るまで横並び、入らなかったら折り返し*/
+          flex-wrap: wrap-reverse; /*右上を一番最後から左へ並んでいく、昔の日本語読み*/
+
+          flex-flow: row wrap; /*directionとwrapを一括指定できる*/
+
+          /*横の隙間*/
+          justify-content: flex-start; /*どこで揃えるか デフォルトは左揃え |田 |*/
+          justify-content: flex-end; /*右揃え | 田|*/
+          justify-content: center; /*中央揃え、よく使う | 田 田 |*/
+          justify-content: space-between; /*両端は左右ビタ付、間のものは均等にスペースを設けて揃える |田 田 田 田|*/
+          justify-content: space-around; /*両端を均等にスペースを空ける　 | 田  田 田  田   田 | ⇦こんなことになったりする*/
+
+          /*垂直の位置*/
+          align-items: stretch; /*上下の余白を埋めるように配置する　高さがないものは縦に伸びる デフォルト*/
+          align-items: flex-start; /*アイテムを上揃えで配置する*/
+          align-items: flex-end; /*した揃え たけのこみたい*/
+          align-items: center; /*上下中央揃え*/
+          align-items: baseline; /*アイテムのベースラインを揃える テキストの位置とか*/
+
+          /*複数行での垂直方向の位置 justify-contentの縦方向版。flex-wrapで折り返していないと効果がないよ*/
+          align-content: stretch; /*デフォルト アイテムの行を、余白を埋めるように配置*/
+          align-content: flex-start; /*上揃え*/
+          align-content: flex-end; /*上揃え*/
+          align-content: space-between; /*上下はビタ付 間は均等に余白*/
+          align-content: space-around; /*上下も均等に余白*/
+        }
+
+        .f-item {
+          border: 1px solid #ddd;
+          margin: 1rem;
+          height: 20px;
+          padding-top: 20px;
+
+          /*並び順 htmlの構造を変えずに、位置を入れ替えることができる*/
+          order: 1;
+          /*flex-grow: 1; /*横の隙間を均一に埋めるようによびる どれだけよびるかも、要素ごとに分けれる */
+          flex-shrink: 1; /*growと逆で、縮める*/
+          flex: 1 0 20%; /*grow shink basisを一括指定する*/
+        }
+        .is {
+          width: 100px;
+          height: 50px;
+          order: 2;
+          /*flex-grow: 2;*/
+          flex-shrink: 2;
+          flex-basis: 50%; /*親の横幅に対して、どれだけ横に呼ばすかを決める 初期値はauto*/
+          align-self: flex-start; /*垂直方向の並びた　親のaling-itemと同じだが、子供指定されている場合は子が優先される*/
+        }
+        .was {
+          width: 30px;
+          height: 100px;
+          order: 3;
+          /*flex-grow: 3;*/
+          flex-shrink: 3;
+          flex-basis: 25%;
+        }
+      </style>
+
+      <aside style="margin-top: 100px">
         <div class="main-wrapper">
           <div class="aboutme">aaaaa</div>
         </div>
