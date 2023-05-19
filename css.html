@@ -77,27 +77,27 @@
           padding-top: 20px;
 
           /*並び順 htmlの構造を変えずに、位置を入れ替えることができる*/
-          order: 1;
-          /*flex-grow: 1; /*横の隙間を均一に埋めるようによびる どれだけよびるかも、要素ごとに分けれる */
-          flex-shrink: 1; /*growと逆で、縮める*/
+          /* order: 1; */
+          flex-grow: 1; /*横の隙間を均一に埋めるようによびる どれだけよびるかも、要素ごとに分けれる 隙間を増やす*/
+          flex-shrink: 1; /*growと逆で、隙間を縮める*/
           flex: 1 0 20%; /*grow shink basisを一括指定する*/
         }
         .is {
           width: 100px;
           height: 50px;
-          order: 2;
+          /* order: 2; */
           /*flex-grow: 2;*/
           flex-shrink: 2;
-          flex-basis: 50%; /*親の横幅に対して、どれだけ横に呼ばすかを決める 初期値はauto*/
+          flex-basis: 20%; /*親の横幅に対して、どれだけ横に呼ばすかを決める 初期値はauto 要素がデカくなる*/
           align-self: flex-start; /*垂直方向の並びた　親のaling-itemと同じだが、子供指定されている場合は子が優先される*/
         }
         .was {
           width: 30px;
           height: 100px;
-          order: 3;
+          /* order: 3; */
           /*flex-grow: 3;*/
           flex-shrink: 3;
-          flex-basis: 25%;
+          flex-basis: 10%;
         }
       </style>
 
