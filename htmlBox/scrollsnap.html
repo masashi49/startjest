@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    HTML CSSResult Skip Results Iframe EDIT ON
+    <div class="container">
+      <section class="area">
+        <h1>scroll-snap-type: x</h1>
+        <p>1</p>
+      </section>
+      <section class="area">
+        <h1>scroll-snap-type: x</h1>
+        <p>2</p>
+      </section>
+      <section class="area">
+        <h1>scroll-snap-type: x</h1>
+        <p>3</p>
+      </section>
+      <section class="area">
+        <h1>scroll-snap-type: x</h1>
+        <p>4</p>
+      </section>
+      <section class="area">
+        <h1>scroll-snap-type: x</h1>
+        <p>5</p>
+      </section>
+    </div>
+
+    <style>
+      .container {
+        overflow: auto;
+        scroll-snap-type: x mandatory;
+        display: flex;
+      }
+      .area {
+        scroll-snap-align: center;
+        height: 100vh;
+        width: 100vw;
+        flex: 0 0 70%;
+        background-color: #0bd;
+      }
+      .area:nth-child(even) {
+        background-color: #0db;
+      }
+    </style>
+  </body>
+</html>
