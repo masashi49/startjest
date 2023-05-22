@@ -21,11 +21,17 @@
     <style>
       .wrapper {
         display: grid;
+        /*最低100px それ以上は1fr 100px入れるスペースができたら入る*/
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        grid-template-rows: 150px 150px 150px;
+        /*縦に積んだ時の行の幅*/
+        grid-template-rows: 100px 200px 300px;
+        grid-auto-rows: 40px;
         gap: 1rem;
         > div {
           border: 1px solid #000;
+          display: grid;
+          align-content: center;
+          justify-content: center;
         }
         > div:nth-child(even) {
           background-color: #ccc;
