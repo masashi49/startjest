@@ -373,7 +373,7 @@ const task = (name: string, total: number): Promise<number> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       total += 1;
-      //console.log(`${name} is ${total}`);
+      console.log(`${name} is ${total}`);
       resolve(total);
     }, 1000);
   });
