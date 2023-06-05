@@ -35,4 +35,14 @@ describe('mockが持っているものをてすとで確認する', () => {
     expect(hello()).toBe('hello');
     expect(helloOB()).toEqual({ id: 1 });
   });
+
+  test('return hello', () => {
+    const mockFun = jest
+      .fn()
+      .mockImplementationOnce(() => 'hello')
+      .mockImplementationOnce(() => 'Goodbye');
+    expect(mockFun()).toBe('hello');
+    expect(mockFun()).toBe('Goodbye');
+    expect(mockFun()).toBe(undefined);
+  });
 });
