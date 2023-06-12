@@ -4,6 +4,26 @@
 
 import { mock } from 'node:test';
 import { callbackify } from 'node:util';
+import { chohan } from './chohan';
+
+// 内部モジュールをモックかする。
+jest.mock('./seed', () => {
+  return {
+    seed: jest
+      .fn()
+      .mockImplementationOnce(() => 2)
+      .mockImplementationOnce(() => 1),
+  };
+});
+
+describe('chohan', () => {
+  it('returns 丁 when seed returns an even number like 2', () => {
+    expect(chohan()).toBe('丁');
+  });
+  it('returns 半 when seed returns an odd number like 1', () => {
+    expect(chohan()).toBe('半');
+  });
+});
 
 describe('mockが持っているものをてすとで確認する', () => {
   test('mock', () => {
@@ -39,8 +59,8 @@ describe('mockが持っているものをてすとで確認する', () => {
   test('return hello', () => {
     const mockFun = jest
       .fn()
-      .mockImplementationOnce(() => 'hello')
-      .mockImplementationOnce(() => 'Goodbye');
+      .mockImplementationOnce(() => 'hello') // その時1回のみつかえる引数
+      .mockImplementationOnce(() => 'Goodbye'); // 1回のみつかえる引数
     expect(mockFun()).toBe('hello');
     expect(mockFun()).toBe('Goodbye');
     expect(mockFun()).toBe(undefined);
