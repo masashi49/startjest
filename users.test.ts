@@ -45,12 +45,49 @@ describe('reset mock with jest.fn', () => {
   const targetDate = '2020-12-25';
   const mockDate = new Date('2019-12-25');
 
+  // 時間を操るテクニック
   beforeEach(() => {
     Date = jest.fn(() => mockDate) as unknown as jest.MockedFunction<
       typeof Date
     >;
   });
   test('jest.clearAllMocks', () => {
-    expect(new Date(targetDate)).toBe(mockDate); // 49行目で Date がモック化されているので、必ずmockDateが返る
+    const hoge = new Date(targetDate);
+    expect(hoge).toBe(mockDate); // 49行目で Date がモック化されているので、何を入れても必ずmockDateが返る
+
+    // 54行目で引数にtargetDateが入っているので、targetDateが入っている
+    // jestのモック関数特有のプロパティやメソッド利用可能になる。
+    expect((Date as jest.MockedFunction<typeof Date>).mock.calls).toEqual([
+      ['2020-12-25'],
+    ]);
+    expect((Date as jest.MockedFunction<typeof Date>).mock.results).toEqual([
+      { type: 'return', value: mockDate },
+    ]);
+
+    const Year = hoge.getFullYear();
+    const Month = hoge.getMonth() + 1;
+    const Dates = hoge.getDate();
+    const Hour = hoge.getHours();
+    const Min = hoge.getMinutes();
+    const Sec = hoge.getSeconds();
+
+    //2019年12月25日9:0:0
+    console.log(
+      Year + '年' + Month + '月' + Dates + '日' + Hour + ':' + Min + ':' + Sec
+    );
+
+    //モック関数の呼び出し履歴や戻り値の記録がクリアされますが、モック関数自体やその実装（つまりモック関数がどのような動作をするか）はクリアされません。
+    jest.clearAllMocks();
+
+    // mockのプロパティが全てリセットされる
+    expect((Date as jest.MockedFunction<typeof Date>).mock.calls).toEqual([]);
+    expect((Date as jest.MockedFunction<typeof Date>).mock.results).toEqual([]);
+
+    console.log(
+      Year + '年' + Month + '月' + Dates + '日' + Hour + ':' + Min + ':' + Sec
+    );
+
+    //mock関数が消えるわけではない。
+    expect(new Date(targetDate)).toEqual(mockDate);
   });
 });
