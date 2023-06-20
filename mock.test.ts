@@ -4,7 +4,7 @@
 
 import { mock } from 'node:test';
 import { callbackify } from 'node:util';
-import { chohan } from './chohan';
+import { chohan, godjob } from './chohan';
 
 // 内部モジュールをモックかする。
 jest.mock('./seed', () => {
@@ -13,6 +13,10 @@ jest.mock('./seed', () => {
       .fn()
       .mockImplementationOnce(() => 2)
       .mockImplementationOnce(() => 1),
+    good: jest
+      .fn()
+      .mockImplementationOnce(() => 100)
+      .mockImplementationOnce(() => '減'),
   };
 });
 
@@ -22,6 +26,10 @@ describe('chohan', () => {
   });
   it('returns 半 when seed returns an odd number like 1', () => {
     expect(chohan()).toBe('半');
+  });
+  test('テスト名', () => {
+    expect(godjob()).toBe('100点です');
+    expect(godjob()).toBe('減点です');
   });
 });
 
